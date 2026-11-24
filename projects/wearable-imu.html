@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMU Movement Assessment | Juan Camilo Rendón</title>
+  <meta name="description" content="Case study: signal-processing and machine-learning pipelines that estimate repetitions, range of motion and velocity from wearable inertial sensors.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="../index.html">JCR</a>
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a class="nav-cv" href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html#projects">← All projects</a></p>
+        <p class="eyebrow">Wearable sensing · Biomechanics · Industry</p>
+        <h1>IMU-based movement assessment</h1>
+        <p class="lead">Turning raw wrist and hip inertial signals into the numbers a coach or clinician needs: how many repetitions, through what range of motion, and how fast.</p>
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd>Deep Learning / AI Software Engineer</dd></div>
+          <div><dt>Context</dt><dd>Wiemspro (Spain), May 2023 – present</dd></div>
+          <div><dt>Stack</dt><dd>Python · NumPy/SciPy · TensorFlow / TF Lite</dd></div>
+          <div><dt>Code</dt><dd>Proprietary</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="case-body narrow">
+      <div class="note info"><p>This is industry work with proprietary data and code. To respect that, this page describes the <strong>method only</strong>. It shows no recordings, accuracy figures or plots of real data. The diagram below is a schematic.</p></div>
+
+      <h2>The problem</h2>
+      <p>Wearable training suits record motion continuously, but users need interpretable outputs: a repetition count, the range of motion of each repetition, and its mean and peak velocity. These have to be robust to sensors placed at different body sites, unsynchronised streams, dropped samples and very different exercise styles. They must also run on a phone.</p>
+
+      <h2>My contribution</h2>
+      <ul>
+        <li><strong>Synchronisation and data quality.</strong> Aligned accelerometer and gyroscope streams from wrist and hip sensors by timestamp, and checked for missing samples before any model evaluation.</li>
+        <li><strong>Signal processing.</strong> Filtering, FFT analysis, windowing, peak detection and temporal segmentation to isolate movement cycles from accelerometer, gyroscope and quaternion signals.</li>
+        <li><strong>Models.</strong> Regression and classification models that count repetitions and estimate range of motion, mean velocity and peak velocity.</li>
+        <li><strong>Validation and deployment.</strong> Compared estimates against experimental reference data, refined the models based on their errors, and exported lightweight models for mobile and embedded inference.</li>
+      </ul>
+
+      <h2>Pipeline</h2>
+      <figure class="figure">
+        <svg class="pipeline-svg" viewBox="0 0 900 360" role="img" aria-label="Pipeline schematic: wrist and hip IMUs, timestamp alignment and gap checks, filtering and segmentation, features and models, outputs of repetitions, range of motion, mean and peak velocity, then on-device inference">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#55626c"/></marker>
+          </defs>
+          <g font-family="Inter, Arial, sans-serif" font-size="14" fill="#14212b">
+            <rect x="20" y="70" width="140" height="56" rx="8" fill="#eef6f9" stroke="#0b5d7a"/>
+            <text x="90" y="95" text-anchor="middle" font-weight="600">Wrist IMU</text>
+            <text x="90" y="114" text-anchor="middle" font-size="12" fill="#55626c">acc · gyro · quat</text>
+            <rect x="20" y="150" width="140" height="56" rx="8" fill="#eef6f9" stroke="#0b5d7a"/>
+            <text x="90" y="175" text-anchor="middle" font-weight="600">Hip IMU</text>
+            <text x="90" y="194" text-anchor="middle" font-size="12" fill="#55626c">acc · gyro · quat</text>
+
+            <path d="M160 98 L200 128" stroke="#55626c" stroke-width="2" marker-end="url(#arr)"/>
+            <path d="M160 178 L200 148" stroke="#55626c" stroke-width="2" marker-end="url(#arr)"/>
+
+            <rect x="205" y="100" width="150" height="76" rx="8" fill="#fff" stroke="#9aa5ad"/>
+            <text x="280" y="128" text-anchor="middle" font-weight="600">Synchronise</text>
+            <text x="280" y="147" text-anchor="middle" font-size="12" fill="#55626c">timestamp alignment</text>
+            <text x="280" y="163" text-anchor="middle" font-size="12" fill="#55626c">missing-sample checks</text>
+
+            <path d="M355 138 h30" stroke="#55626c" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="390" y="100" width="150" height="76" rx="8" fill="#fff" stroke="#9aa5ad"/>
+            <text x="465" y="128" text-anchor="middle" font-weight="600">Process</text>
+            <text x="465" y="147" text-anchor="middle" font-size="12" fill="#55626c">filtering · FFT</text>
+            <text x="465" y="163" text-anchor="middle" font-size="12" fill="#55626c">windowing · peak detection</text>
+
+            <path d="M540 138 h30" stroke="#55626c" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="575" y="100" width="130" height="76" rx="8" fill="#fff" stroke="#9aa5ad"/>
+            <text x="640" y="128" text-anchor="middle" font-weight="600">Models</text>
+            <text x="640" y="147" text-anchor="middle" font-size="12" fill="#55626c">regression</text>
+            <text x="640" y="163" text-anchor="middle" font-size="12" fill="#55626c">classification</text>
+
+            <path d="M705 138 h25" stroke="#55626c" stroke-width="2" marker-end="url(#arr)"/>
+            <g font-size="13" font-weight="600">
+              <rect x="735" y="40" width="145" height="36" rx="6" fill="#0b5d7a"/><text x="807" y="63" text-anchor="middle" fill="#fff">Repetitions</text>
+              <rect x="735" y="86" width="145" height="36" rx="6" fill="#0b5d7a"/><text x="807" y="109" text-anchor="middle" fill="#fff">Range of motion</text>
+              <rect x="735" y="132" width="145" height="36" rx="6" fill="#0b5d7a"/><text x="807" y="155" text-anchor="middle" fill="#fff">Mean velocity</text>
+              <rect x="735" y="178" width="145" height="36" rx="6" fill="#0b5d7a"/><text x="807" y="201" text-anchor="middle" fill="#fff">Peak velocity</text>
+            </g>
+
+            <path d="M640 176 v84" stroke="#55626c" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+            <rect x="540" y="265" width="200" height="56" rx="8" fill="#fff7ed" stroke="#c2410c"/>
+            <text x="640" y="290" text-anchor="middle" font-weight="600">Validate &amp; deploy</text>
+            <text x="640" y="309" text-anchor="middle" font-size="12" fill="#55626c">reference data · TF Lite on mobile</text>
+          </g>
+        </svg>
+        <figcaption><strong>Figure 1. Processing pipeline (schematic, not data).</strong> Two body-worn IMUs are synchronised and checked for gaps, then segmented into movement cycles. Features feed models that output four movement parameters. Models are validated against reference measurements before export for on-device inference.</figcaption>
+      </figure>
+
+      <h2>Why this matters for biomedical engineering</h2>
+      <p>The same chain of synchronisation, artefact handling, cycle segmentation and validation against a reference applies directly to clinical gait analysis, rehabilitation monitoring and wearable ECG or EEG. It complements my academic instrumentation work on an EEG front-end and the CardioNex ECG garment.</p>
+
+      <nav class="case-nav" aria-label="Project navigation">
+        <a href="kidney-ct.html">← Kidney CT audit</a>
+        <a href="../index.html#projects">All projects →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="current-year">2026</span> Juan Camilo Rendón</p>
+      <p><a href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></p>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

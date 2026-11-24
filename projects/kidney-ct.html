@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kidney CT Dataset Audit | Juan Camilo Rendón</title>
+  <meta name="description" content="Case study: data-quality audit, duplicate detection and leakage-aware splitting of a 11,929-image kidney CT dataset before classification.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="../index.html">JCR</a>
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a class="nav-cv" href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html#projects">← All projects</a></p>
+        <p class="eyebrow">Medical imaging · Data quality</p>
+        <h1>Kidney CT dataset audit</h1>
+        <p class="lead">Before training a Normal / Cyst / Tumor / Stone classifier, I measured what could make its accuracy misleading: duplicates, imbalance, corrupt files and train–test leakage.</p>
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd>Data audit, split design, loaders</dd></div>
+          <div><dt>Context</dt><dd>University of Sydney, BMET5933</dd></div>
+          <div><dt>Stack</dt><dd>pandas · scikit-learn · Pillow · tf.data</dd></div>
+          <div><dt>Code</dt><dd><a href="https://github.com/jcrendona/biomedical-ai-portfolio/tree/main/03-kidney-ct-eda" target="_blank" rel="noopener">GitHub →</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="case-body narrow">
+      <h2>The problem</h2>
+      <p>Public CT datasets often produce near-perfect classifiers for the wrong reasons. Slices from the same patient leak across splits, majority classes dominate, and acquisition differences correlate with labels. Without an audit, a later comparison of a CNN and a Vision Transformer would only measure how much each model memorised.</p>
+
+      <h2>My contribution</h2>
+      <ul>
+        <li>A reproducible inventory of every image: class, size, colour mode and file integrity.</li>
+        <li>Per-class pixel-intensity statistics and histograms, plus screening for corrupt and near-blank images.</li>
+        <li>Exact-duplicate detection with MD5 hashes and a lightweight perceptual-hash screen for near-duplicates.</li>
+        <li>A <strong>group-aware stratified 70/15/15 split</strong>, which infers patient or series groups from file names, with integrity checks (no overlapping IDs, no missing paths) saved to <code>dataset_split.csv</code>.</li>
+        <li>Balanced class weights and a <code>tf.data</code> loading and preprocessing pipeline (224 × 224, normalised).</li>
+      </ul>
+
+      <figure class="figure wide">
+        <img src="../assets/images/projects/kidney_ct_samples.png" alt="Grid of 20 CT images, five per class: Normal, Cyst, Tumor, Stone" loading="lazy">
+        <figcaption><strong>Figure 1. Random samples per class.</strong> Axial and coronal reconstructions appear in every class, so view is a possible confounder to watch when the classifier is evaluated.</figcaption>
+      </figure>
+
+      <h2>Findings</h2>
+      <div class="table-wrap">
+        <table class="metric-table">
+          <thead><tr><th>Check</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Images: Normal / Cyst / Tumor / Stone</td><td class="num">5,002 / 3,284 / 2,283 / 1,360</td></tr>
+            <tr><td>Corrupt or near-blank images</td><td class="num">0 / 0</td></tr>
+            <tr><td>Exact duplicates (MD5)</td><td class="num">0</td></tr>
+            <tr><td>Majority / minority ratio</td><td class="num">3.7×</td></tr>
+            <tr><td>Dominant image size</td><td>512 × 512 RGB, with a minority of other sizes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="figure wide">
+        <img src="../assets/images/projects/kidney_class_balance.png" alt="Bar chart of images per class and horizontal bar chart of class weights" loading="lazy">
+        <figcaption><strong>Figure 2. Imbalance and its correction.</strong> Left: Normal makes up 42% of images and Stone 11%. Right: balanced class weights computed on the training split (Stone 2.26, Normal 0.61), ready to pass to <code>model.fit</code> so that minority classes count proportionally.</figcaption>
+      </figure>
+
+      <figure class="figure">
+        <img src="../assets/images/projects/kidney_pca.png" alt="PCA scatter plot of 320 images coloured by class, with heavy overlap" loading="lazy">
+        <figcaption><strong>Figure 3. PCA of downsampled pixels</strong> (80 images per class; 24.7% of variance in two components). The classes overlap heavily, so simple pixel statistics cannot separate them. This motivates learned features and a CNN baseline before any claim about Vision Transformers.</figcaption>
+      </figure>
+
+      <h2>Limitations</h2>
+      <div class="note">
+        <ul>
+          <li>The perceptual hash flagged about 97% of images as near-duplicate candidates. That is too coarse to act on, so the screen is treated as inconclusive and only exact duplicates (none) were removed.</li>
+          <li>The split step indexed 12,446 files against 11,929 in the inventory. The 517-file difference must be traced before final training.</li>
+          <li>The dataset has no explicit patient IDs, so groups are inferred from file names. This lowers the risk of leakage but does not eliminate it.</li>
+        </ul>
+      </div>
+
+      <nav class="case-nav" aria-label="Project navigation">
+        <a href="oncosight.html">← OncoSight</a>
+        <a href="wearable-imu.html">Next: IMU movement assessment →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="current-year">2026</span> Juan Camilo Rendón</p>
+      <p><a href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></p>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

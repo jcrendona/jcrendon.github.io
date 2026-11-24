@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OncoSight Breast Cancer Triage | Juan Camilo Rendón</title>
+  <meta name="description" content="Case study: a multimodal breast cancer triage prototype that fuses mammography, clinical and histopathology models with transparent late fusion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="../index.html">JCR</a>
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a class="nav-cv" href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html#projects">← All projects</a></p>
+        <p class="eyebrow">Clinical decision support · Multimodal fusion</p>
+        <h1>OncoSight: breast cancer triage prototype</h1>
+        <p class="lead">A decision-support prototype that turns three independent models (mammography, clinical variables and histopathology) into one explained triage score, and is explicit about what each part can and cannot do.</p>
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd>Models, fusion logic, application</dd></div>
+          <div><dt>Context</dt><dd>Academic prototype, 2026</dd></div>
+          <div><dt>Stack</dt><dd>PyTorch · scikit-learn · Streamlit · Grad-CAM</dd></div>
+          <div><dt>Code</dt><dd><a href="https://github.com/jcrendona/biomedical-ai-portfolio/tree/main/02-oncosight-breast-cancer" target="_blank" rel="noopener">GitHub →</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="case-body narrow">
+      <div class="note info"><p><strong>Not a medical device.</strong> OncoSight is an academic demonstration. It has not been clinically validated.</p></div>
+
+      <h2>The problem</h2>
+      <p>Breast cancer work-ups combine evidence that arrives at different points in the pathway: screening images, clinical history and, later, pathology. Most model demos show a single probability with no context. I wanted to explore how separately trained models can be combined so that a clinician can see each contribution, change its weight, and understand why the final score came out as it did.</p>
+
+      <h2>My contribution</h2>
+      <ul>
+        <li>Trained the three models and exported their metrics: <strong>ResNet-50</strong> for mammograms, a <strong>class-balanced random forest</strong> for SEER clinical variables, and a <strong>small CNN</strong> for PCam histopathology patches.</li>
+        <li>Wrote the Streamlit application: PNG/JPEG/DICOM input, Grad-CAM overlays, plain-language interpretation for every score, and a source-weight panel.</li>
+        <li>Implemented <strong>weighted late fusion</strong> with weight redistribution. A disabled module is removed and its weight is shared among the others, never silently counted as zero risk. Scores map to Low (&lt; 0.30), Moderate (≤ 0.60) and High risk bands.</li>
+      </ul>
+
+      <figure class="figure wide">
+        <img src="../assets/images/projects/oncosight_ui.png" alt="OncoSight interface with source toggles and weight sliders in the sidebar" loading="lazy">
+        <figcaption><strong>Figure 1. Interface.</strong> Modules are enabled in a triage-oriented reading order and their fusion weights are visible and adjustable. Captured from the recorded walkthrough.</figcaption>
+      </figure>
+
+      <h2>Data and methods</h2>
+      <div class="table-wrap">
+        <table class="metric-table">
+          <thead><tr><th>Module</th><th>Data</th><th>Model</th></tr></thead>
+          <tbody>
+            <tr><td>Mammography</td><td>RSNA Screening Mammography</td><td>ResNet-50, ImageNet initialisation, 50 epochs; Grad-CAM for localisation</td></tr>
+            <tr><td>Clinical context</td><td>SEER breast cancer cohort (tabular)</td><td>Logistic regression, histogram gradient boosting and random forest, all class-balanced; threshold tuned on validation</td></tr>
+            <tr><td>Histopathology (proof of concept)</td><td>PatchCamelyon lymph-node patches</td><td>Small CNN on 96 × 96 patches</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Results</h2>
+      <figure class="figure">
+        <img src="../assets/images/projects/oncosight_gradcam.png" alt="Mammogram and Grad-CAM heatmap side by side" loading="lazy">
+        <figcaption><strong>Figure 2. Mammography module output.</strong> Left: the demo input. Right: Grad-CAM for the ResNet-50 prediction (69.7% probability of suspicious features), concentrated on the dense central region. This is a qualitative check of where the model looks. It is not evidence that the model is accurate.</figcaption>
+      </figure>
+
+      <figure class="figure">
+        <img src="../assets/images/projects/seer_model_comparison.png" alt="Grouped bar chart of ROC-AUC, recall, precision and F1 for four clinical models" loading="lazy">
+        <figcaption><strong>Figure 3. Clinical-context module on the held-out test split (n = 604).</strong> The random forest was selected on validation performance. It reaches ROC-AUC 0.866 with recall 0.61 and precision 0.68 at a threshold of 0.48. The prior-only baseline (ROC-AUC 0.50) shows the gain over chance.</figcaption>
+      </figure>
+
+      <figure class="figure">
+        <img src="../assets/images/projects/rsna_resnet50_history.png" alt="Line chart of validation ROC-AUC and recall across 50 epochs" loading="lazy">
+        <figcaption><strong>Figure 4. The weak link: mammography.</strong> Validation ROC-AUC stays between 0.59 and 0.68 over 50 epochs on 8,184 images, of which 180 are cancer-positive (2.2%). Recall swings widely between epochs. I report this rather than hide it, because it sets the priority for future work.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table class="metric-table">
+          <thead><tr><th>Module</th><th>Metric</th><th>Value</th><th>Conditions</th></tr></thead>
+          <tbody>
+            <tr><td>Clinical context (random forest)</td><td>ROC-AUC · recall · precision · F1</td><td class="num">0.866 · 0.61 · 0.68 · 0.64</td><td>Held-out test, n = 604, 92 positive; threshold 0.48 fixed on validation</td></tr>
+            <tr><td>Mammography (ResNet-50)</td><td>ROC-AUC · recall · precision</td><td class="num">0.641 · 0.55 · 0.03</td><td>Validation, 8,184 images, 180 positive; final epoch, default threshold</td></tr>
+            <tr><td>Histopathology (CNN)</td><td>n/a</td><td>not exported</td><td>Model trained, but held-out metrics were not saved, so none are claimed</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="figure">
+        <img src="../assets/images/projects/oncosight_fusion_summary.png" alt="Integrated triage summary showing three module probabilities and a final score of 26.4 percent, low risk" loading="lazy" style="max-width:520px">
+        <figcaption><strong>Figure 5. Transparent fusion.</strong> With the weights shown (mammography 0.16, clinical 0.62, histopathology 0.22), a strong imaging signal (69.7%) is outweighed by low clinical risk (7.2%), giving 26.4% (Low). The interface shows this trade-off instead of hiding it inside one number.</figcaption>
+      </figure>
+
+      <h2>Limitations and what I would do next</h2>
+      <div class="note">
+        <ul>
+          <li><strong>Unmatched cohorts.</strong> No patient has all three modalities, so the fusion shows a mechanism, not a validated combined model.</li>
+          <li><strong>Leakage caught.</strong> An RSNA metadata model scored ROC-AUC 0.998 because it used BI-RADS, biopsy and invasive-status fields that are only known after diagnosis. I excluded it from the app and from all claims.</li>
+          <li><strong>Mammography performance.</strong> Next steps: higher input resolution, cropping to the breast region, patient-level evaluation and threshold selection for screening-level sensitivity.</li>
+        </ul>
+      </div>
+
+      <nav class="case-nav" aria-label="Project navigation">
+        <a href="chest-xray.html">← Chest X-ray analysis</a>
+        <a href="kidney-ct.html">Next: Kidney CT audit →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="current-year">2026</span> Juan Camilo Rendón</p>
+      <p><a href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></p>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

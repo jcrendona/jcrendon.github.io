@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Juan Camilo Rendón Atehortúa: CV</title>
+<!-- Source for assets/documents/Juan_Camilo_Rendon_CV.pdf.
+     Rebuild: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=assets/documents/Juan_Camilo_Rendon_CV.pdf cv/cv.html -->
+<style>
+  @page { size: A4; margin: 15mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Arial, sans-serif; color: #14212b; font-size: 9.6pt; line-height: 1.42; margin: 0; }
+  a { color: #0b5d7a; text-decoration: none; }
+  header { border-bottom: 2px solid #0b5d7a; padding-bottom: 8px; margin-bottom: 10px; }
+  h1 { font-size: 20pt; margin: 0; letter-spacing: -0.01em; }
+  .title { font-size: 11pt; color: #0b5d7a; font-weight: 600; margin: 2px 0 5px; }
+  .contact { font-size: 8.8pt; color: #55626c; }
+  .contact span + span::before { content: "·"; margin: 0 6px; color: #9aa5ad; }
+  h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: 0.09em; color: #0b5d7a; margin: 13px 0 5px; border-bottom: 1px solid #dde4e8; padding-bottom: 2px; }
+  p { margin: 0 0 4px; }
+  .item { margin-bottom: 8px; break-inside: avoid; }
+  .row { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .role { font-weight: 700; }
+  .org { color: #14212b; }
+  .when { color: #55626c; font-size: 8.8pt; white-space: nowrap; }
+  ul { margin: 3px 0 0; padding-left: 14px; }
+  li { margin-bottom: 2px; }
+  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+  .skills div b { color: #14212b; }
+  .proj-link { font-size: 8.6pt; color: #55626c; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Juan Camilo Rendón Atehortúa</h1>
+  <div class="title">Biomedical AI Engineer · Medical Imaging · Biosignals · Wearable Sensing</div>
+  <div class="contact">
+    <span>Sydney, NSW</span>
+    <span><a href="mailto:jcamilorendon5142@gmail.com">jcamilorendon5142@gmail.com</a></span>
+    <span>+61 415 651 809</span>
+    <span><a href="https://www.linkedin.com/in/juan-camilo-rendon-atehortua-9a8baa1b0">LinkedIn</a></span>
+    <span><a href="https://github.com/jcrendona">GitHub</a></span>
+    <span><a href="https://jcrendona.github.io/jcrendon.github.io/">Portfolio</a></span>
+  </div>
+</header>
+
+<h2>Professional summary</h2>
+<p>Biomedical engineering master's student at the University of Sydney (graduating December 2027), with an Engineering Physics degree and a Master of Electrical Engineering. I bring three years of industry experience building AI and signal-processing software for wearable sensors, and two years of medical-imaging research (segmentation, multi-task classification, interpretability) that contributed to work presented at IEEE EMBC. My focus is on data quality, leakage-free validation and honest reporting of model performance.</p>
+
+<h2>Key skills</h2>
+<div class="skills">
+  <div><b>Machine learning:</b> TensorFlow/Keras, TF Lite, PyTorch, scikit-learn, Grad-CAM, multi-task and uncertainty-weighted losses</div>
+  <div><b>Signals &amp; imaging:</b> filtering, FFT, peak detection, IMU processing, segmentation, DICOM, OpenCV</div>
+  <div><b>Software:</b> Python (NumPy, pandas, SciPy), MATLAB, C/C++ fundamentals, Git, Streamlit, Colab/Kaggle GPUs</div>
+  <div><b>Instrumentation:</b> LTspice, Analog Discovery 2/WaveForms, test protocols, frequency sweeps, SolidWorks</div>
+</div>
+
+<h2>Professional experience</h2>
+<div class="item">
+  <div class="row"><span><span class="role">Deep Learning / AI Software Engineer</span>, <span class="org">Wiemspro, Bio Sensors Suit Group SL (Spain), remote</span></span><span class="when">May 2023 – present</span></div>
+  <ul>
+    <li>Developed and validated models that count exercise repetitions and estimate range of motion, mean speed and peak speed from wearable sensor data.</li>
+    <li>Built Python pipelines for accelerometer, gyroscope and quaternion time series: timestamp alignment of wrist and hip sensors, missing-sample checks, filtering, FFT, windowing and peak detection.</li>
+    <li>Validated algorithms against experimental reference data and deployed lightweight models for mobile and embedded inference.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row"><span><span class="role">Artificial Intelligence Researcher, Computer Vision &amp; Medical Imaging</span>, <span class="org">Universidad Tecnológica de Pereira (Colombia)</span></span><span class="when">2021 – 2023</span></div>
+  <ul>
+    <li>Built reproducible TensorFlow workflows for lung segmentation and chest X-ray finding classification, including multi-task encoder–decoder models and TFRecord pipelines for partially labelled data.</li>
+    <li>Evaluated model robustness with statistical methods. Contributed to research presented at IEEE EMBC, plus technical writing and documentation.</li>
+  </ul>
+</div>
+
+<h2>Selected projects</h2>
+<div class="item">
+  <div class="row"><span class="role">Multi-task chest X-ray analysis</span><span class="when">2021 – 2023</span></div>
+  <ul><li>Combined lung segmentation and 14-finding classification with boundary-aware loss weights. A weighted ensemble reached a mean ROC-AUC of 0.822 over 13 findings on the CheXpert validation set (234 studies).</li></ul>
+</div>
+<div class="item">
+  <div class="row"><span class="role">OncoSight: multimodal breast cancer triage prototype</span><span class="when">2026</span></div>
+  <ul><li>Streamlit decision-support app fusing mammography (ResNet-50 + Grad-CAM), SEER clinical risk and PCam histopathology through transparent, weight-redistributing late fusion. Clinical module test ROC-AUC 0.866 (n = 604). Identified and excluded a label-leaking metadata model.</li></ul>
+</div>
+<div class="item">
+  <div class="row"><span class="role">Kidney CT dataset audit</span><span class="when">University of Sydney, 2026</span></div>
+  <ul><li>Audited 11,929 CT images (integrity, MD5 duplicates, 3.7× class imbalance) and designed a group-aware stratified 70/15/15 split with balanced class weights.</li></ul>
+</div>
+<div class="item">
+  <div class="row"><span class="role">Biomedical signal acquisition and filter verification (EEG front-end)</span><span class="when">University of Sydney, 2026</span></div>
+  <ul><li>Designed amplifier and filter stages and compared simulated and bench responses (gain, cut-off, 50 Hz rejection). Flagged a below-spec output in a saline dipole test (0.55 V p-p against a 1.5 V target) and proposed a gain-stage change.</li></ul>
+</div>
+<div class="item">
+  <div class="row"><span class="role">CardioNex wearable ECG garment</span><span class="when">Design project, 2026</span></div>
+  <ul><li>Refined electrode interfaces and acquisition electronics in a multidisciplinary team, and translated clinical feedback into requirements and prototype checks.</li></ul>
+</div>
+<div class="item">
+  <div class="row"><span class="role">Optical sensor analysis for non-invasive glucose estimation</span><span class="when"></span></div>
+  <ul><li>Multi-wavelength LED/photodiode signals: feature extraction, signal-ratio analysis and regression models evaluated against glucose reference values.</li></ul>
+</div>
+<p class="proj-link">Code, figures and documented results: github.com/jcrendona/biomedical-ai-portfolio</p>
+
+<h2>Education</h2>
+<div class="item">
+  <div class="row"><span><span class="role">Master of Professional Engineering (Biomedical)</span>, University of Sydney</span><span class="when">2025 – Dec 2027 (expected)</span></div>
+</div>
+<div class="item">
+  <div class="row"><span><span class="role">Master of Electrical Engineering</span>, Universidad Tecnológica de Pereira; thesis awarded outstanding distinction</span><span class="when">2023</span></div>
+</div>
+<div class="item">
+  <div class="row"><span><span class="role">Bachelor of Engineering Physics</span>, Universidad Tecnológica de Pereira</span><span class="when">2020</span></div>
+</div>
+
+<h2>References</h2>
+<p>Available on request.</p>
+</body>
+</html>

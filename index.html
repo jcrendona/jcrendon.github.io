@@ -2,272 +2,277 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Portfolio of Juan Camilo Rendón, Biomedical Engineer specialising in biomedical AI, medical imaging, biosignal processing and wearable sensing."
-  >
-
-  <title>Juan Camilo Rendón | Biomedical Engineer</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Camilo Rendón | Biomedical AI Engineer</title>
+  <meta name="description" content="Portfolio of Juan Camilo Rendón: AI applied to biomedical engineering, covering medical imaging, clinical decision support, biosignals and wearable motion analysis.">
+  <meta property="og:title" content="Juan Camilo Rendón | Biomedical AI Engineer">
+  <meta property="og:description" content="Medical imaging, clinical decision support and wearable-sensor AI, with documented results.">
+  <meta property="og:image" content="assets/images/projects/cover_cxr.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <nav class="navbar container" aria-label="Main navigation">
       <a class="logo" href="index.html">JCR</a>
-
-      <button
-        class="menu-button"
-        type="button"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-      >
-        Menu
-      </button>
-
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
       <ul class="nav-links">
         <li><a href="#projects">Projects</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="nav-cv" href="assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
+    <!-- ================= HERO ================= -->
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">
-            Biomedical Engineering · Medical AI · Digital Health
-          </p>
-
-          <h1>Juan Camilo Rendón</h1>
-
-          <h2>
-            Biomedical AI &amp; Digital Health Engineer
-          </h2>
-
-          <p class="hero-description">
-            I am a Biomedical Engineering postgraduate at the University
-            of Sydney, with previous qualifications in Engineering Physics
-            and Electrical Engineering.
-          </p>
-
-          <p class="hero-description hero-description-secondary">
-            My work focuses on medical imaging, biomedical signal processing,
-            wearable sensing and applied artificial intelligence, with
-            particular attention to data quality, experimental design,
-            validation, interpretability and practical deployment.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button primary" href="#projects">
-              View projects
-            </a>
-
-            <a
-              class="button secondary"
-              href="assets/documents/Juan_Camilo_Rendon_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View CV
-            </a>
-          </div>
-
-          <div class="social-links">
-            <a
-              href="https://github.com/JCRA18"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/juan-camilo-rendon-atehortua-9a8baa1b0"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-
-            <a
-              href="https://scholar.google.com/citations?user=FOchhUEAAAAJ&amp;hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Google Scholar
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-image">
-          <img
-            src="assets/images/profile.jpg"
-            alt="Professional portrait of Juan Camilo Rendón"
-          >
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="expertise">
       <div class="container">
-        <p class="section-label">Expertise</p>
-
-        <h2>
-          Biomedical engineering through data and computation
-        </h2>
-
-        <div class="expertise-grid">
-          <article class="card">
-            <h3>Medical imaging</h3>
-
-            <p>
-              Deep learning, segmentation, classification,
-              interpretability and quantitative validation.
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">AI for biomedical engineering</p>
+            <h1>Juan Camilo Rendón</h1>
+            <p class="role">Biomedical AI engineer: medical imaging, biosignals and wearable motion analysis</p>
+            <p class="hero-lead">
+              I build and validate machine-learning systems for health data, from chest X-rays and mammograms to the
+              inertial sensors in a training suit. I care about the steps that decide whether a model can be trusted:
+              data audits, leakage-free splits, honest metrics and interpretable outputs.
             </p>
-          </article>
+            <div class="hero-actions">
+              <a class="button primary" href="#projects">Explore projects</a>
+              <a class="button secondary" href="assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">View CV (PDF)</a>
+            </div>
+            <div class="social-links">
+              <a href="https://github.com/jcrendona" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://www.linkedin.com/in/juan-camilo-rendon-atehortua-9a8baa1b0" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://scholar.google.com/citations?user=FOchhUEAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+            </div>
+          </div>
+          <div class="hero-photo">
+            <img src="assets/images/profile.jpg" alt="Portrait of Juan Camilo Rendón" width="380" height="380">
+          </div>
+        </div>
 
-          <article class="card">
-            <h3>Biosignal processing</h3>
-
-            <p>
-              ECG, inertial signals, filtering, feature extraction
-              and time-series analysis.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Wearable sensing</h3>
-
-            <p>
-              IMU-based movement analysis, biomechanics and embedded
-              machine learning.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Applied machine learning</h3>
-
-            <p>
-              Predictive modelling, experimental validation and
-              reproducible research.
-            </p>
-          </article>
+        <div class="facts" aria-label="Highlights">
+          <div class="fact"><strong>3+ years in industry</strong><span>AI for wearable sensors at Wiemspro</span></div>
+          <div class="fact"><strong>Medical-imaging research</strong><span>Contributed to work presented at IEEE EMBC</span></div>
+          <div class="fact"><strong>MPE Biomedical Eng.</strong><span>University of Sydney, expected Dec 2027</span></div>
+          <div class="fact"><strong>M.Eng. Electrical Eng.</strong><span>Thesis awarded outstanding distinction</span></div>
         </div>
       </div>
     </section>
 
+    <!-- ================= PROJECTS ================= -->
     <section class="section section-muted" id="projects">
       <div class="container">
         <p class="section-label">Selected work</p>
+        <h2>Projects</h2>
+        <p class="section-intro">
+          Each case study covers the problem, my contribution, the data and methods, and the evidence. Every metric states what was
+          evaluated and on which data. Code and notebooks are on
+          <a href="https://github.com/jcrendona/biomedical-ai-portfolio" target="_blank" rel="noopener">GitHub</a>.
+        </p>
 
-        <h2>Biomedical engineering projects</h2>
+        <div class="filters" role="group" aria-label="Filter projects by area">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="imaging" aria-pressed="false">Medical imaging</button>
+          <button class="filter" type="button" data-filter="clinical" aria-pressed="false">Clinical decision support</button>
+          <button class="filter" type="button" data-filter="sensors" aria-pressed="false">Biosignals &amp; wearables</button>
+        </div>
 
         <div class="project-grid">
-          <article class="project-card">
-            <div class="project-content">
-              <p class="project-category">
-                Medical imaging · Deep learning
-              </p>
-
-              <h3>Multi-task Chest X-ray Analysis</h3>
-
-              <p>
-                Automated lung segmentation and thoracic pathology
-                classification using multi-task deep learning.
-              </p>
-
-              <ul class="project-metrics">
-                <li>Dice scores of approximately 95–96%</li>
-                <li>Mean classification AUROC of approximately 0.80</li>
-              </ul>
-
-              <a href="projects/chest-xray.html">
-                Read case study
-              </a>
+          <article class="project-card" data-area="imaging">
+            <div class="project-media">
+              <img src="assets/images/projects/cover_cxr.jpg" alt="Chest radiograph next to the same image with the lung mask overlaid in blue" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Medical imaging</span><span class="tag">Multi-task learning</span></div>
+              <h3><a href="projects/chest-xray.html">Multi-task chest X-ray analysis</a></h3>
+              <p>Lung segmentation and thoracic-finding classification with shared encoders, boundary-aware loss weights and a TFRecord pipeline built for partially labelled data.</p>
+              <div class="key-result">
+                <strong>0.822 mean ROC-AUC</strong>
+                <span>13 findings · CheXpert validation set (234 studies) · weighted ensemble of attention CNNs</span>
+              </div>
+              <span class="card-link" aria-hidden="true">Read case study →</span>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-content">
-              <p class="project-category">
-                Wearable sensing · Biomechanics
-              </p>
-
-              <h3>IMU-based Movement Assessment</h3>
-
-              <p>
-                Estimation of range of motion and movement velocity
-                using wearable inertial sensors.
-              </p>
-
-              <a href="projects/wearable-imu.html">
-                Read case study
-              </a>
+          <article class="project-card" data-area="imaging clinical">
+            <div class="project-media">
+              <img src="assets/images/projects/cover_oncosight.jpg" alt="Mammogram next to its Grad-CAM heatmap highlighting a dense region" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Clinical decision support</span><span class="tag">Multimodal fusion</span></div>
+              <h3><a href="projects/oncosight.html">OncoSight: breast cancer triage prototype</a></h3>
+              <p>A Streamlit app that combines mammography (ResNet-50 + Grad-CAM), clinical variables and histopathology into a transparent late-fusion triage score.</p>
+              <div class="key-result">
+                <strong>0.866 test ROC-AUC</strong>
+                <span>Clinical-context module · SEER held-out test split (n = 604) · mammography module limits reported openly</span>
+              </div>
+              <span class="card-link" aria-hidden="true">Read case study →</span>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-content">
-              <p class="project-category">
-                Biosignals · Machine learning
-              </p>
-
-              <h3>ECG-based Biometric Identification</h3>
-
-              <p>
-                Signal-processing and machine-learning pipeline for
-                identity verification using cardiac morphology.
-              </p>
-
-              <a href="projects/ecg-identification.html">
-                Read case study
-              </a>
+          <article class="project-card" data-area="imaging">
+            <div class="project-media">
+              <img src="assets/images/projects/cover_kidney.jpg" alt="Grid of kidney CT slices in axial and coronal views" loading="lazy" width="1200" height="750">
             </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Medical imaging</span><span class="tag">Data quality</span></div>
+              <h3><a href="projects/kidney-ct.html">Kidney CT dataset audit</a></h3>
+              <p>Duplicate detection, imbalance analysis and a group-aware 70/15/15 split, done before training a Normal / Cyst / Tumor / Stone classifier.</p>
+              <div class="key-result">
+                <strong>11,929 CT images audited</strong>
+                <span>0 corrupt · 0 exact duplicates · 3.7× class imbalance quantified and weighted</span>
+              </div>
+              <span class="card-link" aria-hidden="true">Read case study →</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-area="sensors">
+            <div class="project-media">
+              <svg viewBox="0 0 1200 750" role="img" aria-label="Schematic of wrist and hip inertial sensors feeding a signal-processing and model pipeline">
+                <rect width="1200" height="750" fill="#0d1b24"/>
+                <g fill="none" stroke="#3f8fb0" stroke-width="3">
+                  <path d="M80 300 C 140 220, 200 380, 260 300 S 380 220, 440 300 S 560 380, 620 300" stroke="#7dd3fc"/>
+                  <path d="M80 420 C 130 380, 180 470, 230 420 S 330 370, 380 420 S 480 470, 530 420 S 590 380, 620 420"/>
+                  <path d="M80 530 C 120 510, 160 560, 200 530 S 280 500, 320 530 S 400 560, 440 530 S 560 500, 620 530" stroke="#9cc5d6" opacity=".7"/>
+                </g>
+                <text x="80" y="190" font-family="Inter, Arial, sans-serif" fill="#b8c6cf" font-size="26">schematic · accelerometer · gyroscope · quaternion</text>
+                <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#55626c"/></marker></defs>
+                <path d="M660 410 h90" stroke="#55626c" stroke-width="3" marker-end="url(#ah)"/>
+                <g font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">
+                  <rect x="780" y="230" width="340" height="70" rx="10" fill="#14303f"/><text x="805" y="275" fill="#e6edf1">Repetition count</text>
+                  <rect x="780" y="320" width="340" height="70" rx="10" fill="#14303f"/><text x="805" y="365" fill="#e6edf1">Range of motion</text>
+                  <rect x="780" y="410" width="340" height="70" rx="10" fill="#14303f"/><text x="805" y="455" fill="#e6edf1">Mean velocity</text>
+                  <rect x="780" y="500" width="340" height="70" rx="10" fill="#14303f"/><text x="805" y="545" fill="#e6edf1">Peak velocity</text>
+                </g>
+              </svg>
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Wearable sensing</span><span class="tag">Biomechanics</span></div>
+              <h3><a href="projects/wearable-imu.html">IMU-based movement assessment</a></h3>
+              <p>Industry pipelines that turn wrist and hip inertial signals into repetition counts, range of motion and velocity estimates for exercise monitoring.</p>
+              <div class="key-result">
+                <strong>4 movement parameters</strong>
+                <span>Industry work at Wiemspro (2023–present) · proprietary data, so this case study covers the method only</span>
+              </div>
+              <span class="card-link" aria-hidden="true">Read case study →</span>
+            </div>
+          </article>
+        </div>
+
+        <h3 style="margin-top:56px;font-size:1.15rem">Biosignals, instrumentation and other work</h3>
+        <div class="mini-grid" style="margin-top:16px">
+          <article class="mini">
+            <span class="meta">University of Sydney · 2026</span>
+            <h3>EEG front-end: filter verification</h3>
+            <p>Designed analogue amplifier and filter stages, then compared simulated and bench frequency response (gain, cut-off, 50 Hz rejection). In a saline dipole test I flagged an output below specification (0.55 V p-p against a 1.5 V target) and proposed a change to the final gain stage.</p>
+          </article>
+          <article class="mini">
+            <span class="meta">Design project · 2026</span>
+            <h3>CardioNex wearable ECG garment</h3>
+            <p>Worked in a multidisciplinary team on electrode interfaces and acquisition electronics for a two-band ECG garment. Turned clinical feedback on placement and comfort into updated requirements and test checks.</p>
+          </article>
+          <article class="mini">
+            <span class="meta">Applied ML</span>
+            <h3>Optical sensing for glucose estimation</h3>
+            <p>Feature extraction, signal-ratio analysis and regression models on multi-wavelength LED/photodiode data, evaluated against glucose reference values.</p>
+          </article>
+          <article class="mini">
+            <span class="meta">NLP · exploration</span>
+            <h3><a href="https://github.com/jcrendona/biomedical-ai-portfolio/tree/main/04-llm-local-inference" target="_blank" rel="noopener">Local LLM inference</a></h3>
+            <p>GPT-2 compared with a quantised Llama-2-13B-chat (GGML, GPU offloading) on a single T4, answering domain questions about EMS training.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container callout">
+    <!-- ================= EXPERIENCE ================= -->
+    <section class="section" id="experience">
+      <div class="container two-col">
         <div>
-          <p class="section-label">Current focus</p>
-
-          <h2>
-            Biomedical research and engineering in Sydney
-          </h2>
-
-          <p>
-            Available for biomedical engineering, research assistant,
-            health data science and digital health opportunities.
-          </p>
+          <p class="section-label">Experience</p>
+          <h2>Where I have worked</h2>
+          <ol class="timeline">
+            <li>
+              <span class="when">May 2023 – present · Remote</span>
+              <h3>Deep Learning / AI Software Engineer, Wiemspro (Bio Sensors Suit Group SL, Spain)</h3>
+              <p>Models that count repetitions and estimate range of motion, mean and peak speed from wearable IMU data. This includes timestamp alignment of wrist and hip streams, missing-sample checks, and lightweight deployment for mobile inference.</p>
+            </li>
+            <li>
+              <span class="when">2021 – 2023</span>
+              <h3>AI Researcher, Computer Vision &amp; Medical Imaging, Universidad Tecnológica de Pereira</h3>
+              <p>Reproducible workflows for lung segmentation and chest X-ray finding classification, multi-task learning and statistical robustness evaluation. Contributed to research presented at IEEE EMBC.</p>
+            </li>
+          </ol>
         </div>
+        <div>
+          <p class="section-label">Education</p>
+          <h2>Background</h2>
+          <ol class="timeline">
+            <li>
+              <span class="when">2025 – Dec 2027 (expected)</span>
+              <h3>Master of Professional Engineering (Biomedical), University of Sydney</h3>
+              <p>Biomedical systems, instrumentation, signal processing and biomechanical design.</p>
+            </li>
+            <li>
+              <span class="when">2023</span>
+              <h3>Master of Electrical Engineering, Universidad Tecnológica de Pereira</h3>
+              <p>AI, automation and mathematical modelling. Thesis awarded outstanding distinction.</p>
+            </li>
+            <li>
+              <span class="when">2020</span>
+              <h3>Bachelor of Engineering Physics, Universidad Tecnológica de Pereira</h3>
+              <p>Optics, electromagnetism, numerical methods and data analysis.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
 
-        <a class="button primary" href="contact.html">
-          Contact me
-        </a>
+    <!-- ================= SKILLS ================= -->
+    <section class="section section-muted" id="skills">
+      <div class="container">
+        <p class="section-label">Toolkit</p>
+        <h2>Skills</h2>
+        <div class="skill-groups" style="margin-top:24px">
+          <div><h3>Machine learning</h3><ul><li>TensorFlow / Keras, TF Lite</li><li>PyTorch, torchvision</li><li>scikit-learn</li><li>Grad-CAM, uncertainty-weighted losses</li></ul></div>
+          <div><h3>Signals &amp; imaging</h3><ul><li>Filtering, FFT, peak detection</li><li>IMU fusion, windowing</li><li>Segmentation &amp; classification</li><li>DICOM, OpenCV</li></ul></div>
+          <div><h3>Engineering</h3><ul><li>Python, MATLAB, C/C++ basics</li><li>Git, reproducible pipelines</li><li>Streamlit prototypes</li><li>Google Colab, Kaggle GPUs</li></ul></div>
+          <div><h3>Instrumentation</h3><ul><li>LTspice simulation</li><li>Analog Discovery 2 / WaveForms</li><li>Test protocols, frequency sweeps</li><li>SolidWorks CAD</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="callout">
+          <div>
+            <p class="section-label">Contact</p>
+            <h2>Open to biomedical engineering and health-AI roles in Sydney</h2>
+            <p>Research assistant, medical-device, health data science and digital health opportunities.</p>
+          </div>
+          <div class="callout-actions">
+            <a class="button primary" href="mailto:jcamilorendon5142@gmail.com">Email me</a>
+            <a class="button secondary" href="assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>
-        © <span id="current-year"></span> Juan Camilo Rendón
-      </p>
-
-      <p>Biomedical AI and Digital Health</p>
+      <p>© <span id="current-year">2026</span> Juan Camilo Rendón</p>
+      <p>Biomedical AI · Sydney, Australia</p>
     </div>
   </footer>
 

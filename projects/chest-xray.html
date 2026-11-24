@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-task Chest X-ray Analysis | Juan Camilo Rendón</title>
+  <meta name="description" content="Case study: lung segmentation and thoracic-finding classification with multi-task deep learning; mean ROC-AUC 0.822 on the CheXpert validation set.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="../index.html">JCR</a>
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a class="nav-cv" href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html#projects">← All projects</a></p>
+        <p class="eyebrow">Medical imaging · Multi-task deep learning</p>
+        <h1>Multi-task chest X-ray analysis</h1>
+        <p class="lead">One network that segments the lungs and classifies thoracic findings, trained on a mix of a few hundred pixel-labelled images and tens of thousands of image-level labels.</p>
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd>AI researcher (pipeline, models, evaluation)</dd></div>
+          <div><dt>Context</dt><dd>Universidad Tecnológica de Pereira, 2021–2023</dd></div>
+          <div><dt>Stack</dt><dd>TensorFlow/Keras · OpenCV · scikit-learn</dd></div>
+          <div><dt>Code</dt><dd><a href="https://github.com/jcrendona/biomedical-ai-portfolio/tree/main/01-chest-xray-multitask" target="_blank" rel="noopener">GitHub →</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="case-body narrow">
+      <h2>The problem</h2>
+      <p>Chest X-ray classifiers can score well while looking at the wrong things: text markers, support devices or how the patient was positioned. Pixel-level lung annotations would help a model attend to the right anatomy, but only about 700 public images have them, while image-level finding labels exist for tens of thousands.</p>
+      <p>I worked on <strong>multi-task models</strong> that learn segmentation and classification together, so the segmentation task shapes the shared encoder that the classifier depends on.</p>
+
+      <h2>My contribution</h2>
+      <ul>
+        <li><strong>Data pipeline for partial labels.</strong> Merged a 92,028-row image-level metadata table (14 findings) with 704 Montgomery and Shenzhen lung masks and serialised everything to sharded TFRecords. Each sample carries flags saying which tasks it has labels for, so batches can mix fully and partially labelled images.</li>
+        <li><strong>Boundary-aware loss weights.</strong> Computed a weight map per mask, using a morphological gradient followed by an L1 distance transform, so the segmentation loss can emphasise lung contours.</li>
+        <li><strong>Architectures.</strong> A DenseNet-121 encoder with a U-Net decoder (Dice loss), and a lighter MobileNet with classification, segmentation and reconstruction heads. I explored learnable uncertainty weighting between the losses.</li>
+        <li><strong>Benchmarking.</strong> Compared DenseNet-121, CRAL attention and AG-CNN variants under two CheXpert uncertainty-label policies, and built a weighted ensemble.</li>
+      </ul>
+
+      <figure class="figure wide">
+        <img src="../assets/images/projects/cxr_pipeline_panels.png" alt="Four panels: a chest radiograph; the same radiograph with the lung mask outlined; a boundary weight map; and a rotated augmented radiograph with its mask" loading="lazy">
+        <figcaption><strong>Figure 1. What the model is trained on.</strong> (A) Shenzhen radiograph (public, de-identified). (B) Manual lung mask overlaid. (C) Boundary-aware weight map computed from a mask: dark values sit on the contour, so the loss can weight border pixels separately. (D) Training-time augmentation, with image and mask rotated together by −10° so the labels stay aligned.</figcaption>
+      </figure>
+
+      <h2>Data and methods</h2>
+      <div class="table-wrap">
+        <table class="metric-table">
+          <thead><tr><th>Data</th><th>Used for</th><th>Size (as executed)</th></tr></thead>
+          <tbody>
+            <tr><td>Merged CXR metadata, 14 findings</td><td>Classification labels</td><td>34,898 samples → 27,918 train / 3,490 val / 3,490 test</td></tr>
+            <tr><td>Montgomery + Shenzhen lung masks</td><td>Segmentation labels and boundary weights</td><td>704 masks, 224 × 224</td></tr>
+            <tr><td>Shenzhen TB subset</td><td>MobileNet multi-task experiment</td><td>452 training images (904 after rotation), 80/20 split</td></tr>
+            <tr><td>CheXpert validation set</td><td>Held-out model comparison</td><td>234 studies, 13 findings with positive cases</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="conditions">Images resized to 224 × 224 and normalised with ImageNet statistics; Adam optimiser; checkpointing and learning-rate reduction on plateau. All datasets are public and are not redistributed.</p>
+
+      <h2>Results</h2>
+      <figure class="figure wide">
+        <img src="../assets/images/projects/chexpert_auc_heatmap.png" alt="Heatmap of ROC-AUC per finding for ten model variants" loading="lazy">
+        <figcaption><strong>Figure 2. Per-finding ROC-AUC on the CheXpert validation set.</strong> Rows are model variants, with mean AUC in brackets. Edema, pleural effusion and support devices are consistently above 0.90. Lung lesion and enlarged cardiomediastinum stay near or below chance for most models, which is consistent with very few positive cases in a 234-study validation set. Treat those two columns as unreliable, not as evidence that one model is better.</figcaption>
+      </figure>
+
+      <figure class="figure">
+        <img src="../assets/images/projects/chexpert_mean_auc.png" alt="Bar chart ranking ten models by mean ROC-AUC, ensemble highest at 0.822" loading="lazy">
+        <figcaption><strong>Figure 3. Mean ROC-AUC ranking.</strong> The weighted ensemble (0.822) and the AG-CNN global branch (0.821) lead, about 0.025 above the DenseNet-121 baseline. The x-axis starts at 0.76 so the differences are visible.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table class="metric-table">
+          <thead><tr><th>Model</th><th>Mean ROC-AUC</th><th>Evaluated on</th></tr></thead>
+          <tbody>
+            <tr><td>Weighted ensemble: 0.3 CRAL att-1 + 0.3 CRAL att-2 (U-Multi) + 0.4 AG-CNN global</td><td class="num">0.822</td><td>CheXpert validation, 234 studies, 13 findings</td></tr>
+            <tr><td>AG-CNN, global branch (U-Ones)</td><td class="num">0.821</td><td>same</td></tr>
+            <tr><td>DenseNet-121 baseline (U-Ones)</td><td class="num">0.797</td><td>same</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="conditions">ROC-AUC is computed per finding with scikit-learn and averaged without weighting. Ensemble weights were set by hand, not tuned on this set. No confidence intervals were computed; with 234 studies, gaps of about 0.01 are within noise.</p>
+
+      <h2>Limitations</h2>
+      <div class="note">
+        <ul>
+          <li>Segmentation Dice scores are not recorded in these notebooks, so none are reported here.</li>
+          <li>While preparing this portfolio I found that the MobileNet Grad-CAM cell uses the ImageNet classifier head instead of the trained model. Its heatmap is therefore not shown as evidence. The fix is documented in the repository.</li>
+          <li>The comparison is on one small validation split. Patient-level cross-validation with bootstrap confidence intervals would be the next step.</li>
+        </ul>
+      </div>
+
+      <nav class="case-nav" aria-label="Project navigation">
+        <a href="../index.html#projects">← All projects</a>
+        <a href="oncosight.html">Next: OncoSight →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="current-year">2026</span> Juan Camilo Rendón</p>
+      <p><a href="../assets/documents/Juan_Camilo_Rendon_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a></p>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
